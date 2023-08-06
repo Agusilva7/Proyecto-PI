@@ -6,6 +6,7 @@ export function getVideoGames(){
         //logica de la action
         try {
             const response = await axios.get("http://localhost:3001/videogames")
+           
             dispatch({
                 type:GET_VIDEOGAMES,
                 payload:response.data

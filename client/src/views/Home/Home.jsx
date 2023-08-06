@@ -10,7 +10,10 @@ const Home = () => {
 
   const allVideoGames=useSelector((state)=>state.allVideoGames)
 
+
+
   useEffect(()=>{
+    console.log(allVideoGames)
     dispatch(getVideoGames())
     //se ejecuta cuando el componente se monte.
 

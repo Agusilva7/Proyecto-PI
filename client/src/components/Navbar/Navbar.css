@@ -1,0 +1,26 @@
+.nav-cont{
+    /* rgba(6, 15, 60, 0.279) */
+    /* background-color: rgb(0, 0, 0); */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.nav-img-cont img{
+    width: 7rem;
+    
+}
+
+.nav-link-cont{
+    display: flex;
+    justify-content: space-around;
+    width: 10rem;
+    
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    gap: 1rem;
+   
+
+}
+.link{
+    color:rgb(255, 255, 255)
+}

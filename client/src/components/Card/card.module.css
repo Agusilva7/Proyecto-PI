@@ -1,0 +1,14 @@
+.card{
+    background-color:#21264b;    
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:1rem;
+    border:solid 0.4rem #13293D;
+    border-radius: 1.2rem;
+    gap: 3rem;
+    color: white;
+    
+}

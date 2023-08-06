@@ -1,0 +1,16 @@
+.form-cont form{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+.form-cont form input {
+    width: 15rem;
+}
+.form-button{
+    margin:2rem;
+    background-color: red;
+}
+.form-error{
+    color:red
+}

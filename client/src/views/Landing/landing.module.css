@@ -1,0 +1,20 @@
+.cont{
+    background-image: url("https://i.pinimg.com/originals/61/8f/08/618f083c61a7460ce0a6064319af41bd.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    width: 100%;
+    aspect-ratio: auto 635 / 357;
+    height: 100%;
+}
+.imagen{
+    cursor:pointer;
+    width: 15rem;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+.imagen:hover{
+    filter: drop-shadow(0.5rem 0.5rem 0.5rem rgb(66, 3, 110)) invert(1%);
+}

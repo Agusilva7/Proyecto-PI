@@ -1,0 +1,17 @@
+.div_cont{
+    color:white;
+    background-image: url("https://i.pinimg.com/originals/fe/ec/85/feec85c19d39ef2215b1e9878566f879.gif");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+}
+h1{
+    color:white;
+    display: flex;
+    justify-content: center;
+}
+.filtros{
+   display: flex;
+   justify-content: center;
+   gap:2rem
+}

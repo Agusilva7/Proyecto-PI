@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { getVideoGames , hoja, orderName} from '../../Redux/Actions/actions'
+import { getVideoGames, hoja, orderName} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
@@ -13,10 +13,10 @@ const Home = () => {
 
 
   useEffect(()=>{
-    console.log(allVideoGames)
     dispatch(getVideoGames())
+  
     //se ejecuta cuando el componente se monte.
-
+    // return(getVideoGamesId(id))
   },[])
 
   const paginate=(event)=>{
@@ -26,7 +26,7 @@ const Home = () => {
   const orderByName = (event)=>{
     dispatch(orderName(event.target.name))
   }
-
+  
   return (
     <div className={Style.div_cont}>
         <h1>Home</h1>
@@ -42,6 +42,7 @@ const Home = () => {
         <div>
           <Cards info={allVideoGames}/>
         </div>
+        
     </div>
   )
 }

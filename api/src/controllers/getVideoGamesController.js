@@ -14,7 +14,7 @@ const getVideoGamesController=async()=>{
                 const videoGame={
                     id:juego.id,
                     name:juego.name,
-                    image:juego.image,
+                    image:juego.background_image,
                     platforms:juego.platforms,
                     slug:juego.slug,
                     released:juego.released,

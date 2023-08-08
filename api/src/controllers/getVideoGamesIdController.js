@@ -9,16 +9,16 @@ const getVideoGamesIdController=async(id)=>{
     const {data}=await axios(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
     
     if (data){
-        const juego=data;
+        console.log(data)
         const videoGame={
-                    id:juego.id,
-                    name:juego.name,
-                    image:juego.image,
-                    platforms:juego.platforms,
-                    slug:juego.slug,
-                    released:juego.released,
-                    rating:juego.rating,
-                    genres:juego.genres
+                    id:data.id,
+                    name:data.name,
+                    image:data.background_image,
+                    platforms:data.platforms,
+                    descripcion:data.description,
+                    released:data.released,
+                    rating:data.rating,
+                    genres:data.genres
                 }
         
         return videoGame

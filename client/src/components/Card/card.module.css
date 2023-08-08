@@ -1,6 +1,10 @@
+@font-face {
+    font-family: "Font";
+    src: url("C:\Users\niupi\Desktop\PI-Videogames-main\client\src\Font\Valorant Font.ttf");
+  }
 .card{
     background-color:#21264b;    
-    width: 15rem;
+    width: 17rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +12,26 @@
     margin:1rem;
     border:solid 0.4rem #13293D;
     border-radius: 1.2rem;
-    gap: 3rem;
-    color: white;
     
+    color: white;
+    font-family: "Font";
+    
+}
+.div_img{
+    width: 16rem;
+    height: 15rem;   
+}
+
+.div_img:hover{
+    transition-duration:2000ms;
+    transform:rotate(360deg);
+    opacity: 0;
+    cursor: grab
+}
+
+
+.div_cont_card{
+    background-image: url("https://i.pinimg.com/originals/4c/0e/0e/4c0e0e63b1907cfaef6dcac328b217c4.gif");
+    height: 15rem;
+    width: 16rem;
 }

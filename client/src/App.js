@@ -20,7 +20,7 @@ function App() {
           <Route exact path={"/"} component={Landing}/>
           <Route path={"/home"} component={Home} />
           <Route path={"/create"} component={Create}/>
-          <Route path={"/details"} component={Details}/>
+          <Route path={"/details/:id"} component={Details}/>
 
         </Switch>
       

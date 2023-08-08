@@ -3,7 +3,9 @@ import Card from "../Card/Card"
 import Style from "./cards.module.css"
 const Cards = ({info}) => {
   // const gameGenero=[];
+
   return (
+
     <div className={Style.cards}>
       {
         
@@ -12,7 +14,7 @@ const Cards = ({info}) => {
           // game.genres.forEach(genero => {
           //   gameGenero.push(genero.name)
           // });
-          return <Card name={game.name} genres={game.genres}/>
+          return <Card name={game.name} genres={game.genres} image={game.image} id={game.id}/>
         })
       }
     </div>

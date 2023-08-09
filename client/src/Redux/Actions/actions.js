@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,CLEAR} from "../Actions/action-types";
+import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,CLEAR} from "../Actions/action-types";
 import axios from "axios"
 
 export function getVideoGames(){
@@ -32,6 +32,22 @@ export function getVideoGamesId(id){
             console.log(error.message)
         }
 
+    }
+}
+
+export function getVideoGamesName(name){
+    return async function (dispatch){
+        try {
+            console.log(name)
+            const response=await axios.get(`http://localhost:3001/videogames/name?name=${name}`)
+            console.log(response.data)
+            dispatch({
+                type:GET_VIDEOGAMES_NAME,
+                payload:response.data
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 }
 

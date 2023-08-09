@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { getVideoGames, hoja, orderName} from '../../Redux/Actions/actions'
+import { clear, getVideoGames, hoja, orderName} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
@@ -9,6 +9,7 @@ const Home = () => {
   const dispatch=useDispatch();
 
   const allVideoGames=useSelector((state)=>state.allVideoGames)
+  const gameName=useSelector((state)=>state.gameName)
 
 
 
@@ -37,10 +38,11 @@ const Home = () => {
           <label>Paginado</label>
           <button name="prev" onClick={paginate}>Prev</button>
           <button name="next" onClick={paginate}>Next</button>
+          <button onClick={()=>{dispatch(clear())}}>Clear</button>
         </div>
         
         <div>
-          <Cards info={allVideoGames}/>
+          {gameName.length?<Cards info={gameName}/>:<Cards info={allVideoGames}/>}
         </div>
         
     </div>

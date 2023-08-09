@@ -1,9 +1,10 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
     allVideoGamesBackUp:[],
     gameDetail:[],
+    gameName:[],
     currentPage:0
 };
 
@@ -11,6 +12,7 @@ function rootReducer(state=initialState,action){
     const ITEMS_PER_PAGE=15;
     switch (action.type) {
         case GET_VIDEOGAMES:
+            
             return{
                 ...state,
                 allVideoGames:[...action.payload].splice(0,ITEMS_PER_PAGE),
@@ -20,6 +22,13 @@ function rootReducer(state=initialState,action){
             return {
                 ...state,
                 gameDetail:action.payload
+            }
+         
+
+        case GET_VIDEOGAMES_NAME:
+            return{
+                ...state,
+                gameName:action.payload
             }
         case PAGINATE:
             const next_page=state.currentPage + 1;
@@ -72,11 +81,12 @@ function rootReducer(state=initialState,action){
                 }
 
             }
-            case CLEAR:
-                return{
-                    ...state,
-                    gameDetail:action.payload
-                }
+        case CLEAR:
+            return{
+                ...state,
+                gameDetail:action.payload,
+                gameName:[]
+            }
 
 
         default:

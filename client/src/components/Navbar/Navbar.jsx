@@ -1,8 +1,29 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import {Link} from "react-router-dom"
 import "./Navbar.css"
+import {getVideoGamesName}from "../../Redux/Actions/actions"
+import { useDispatch} from 'react-redux'
+
 
 const Navbar = () => {
+    const dispatch=useDispatch();
+    const [game,setGame]=useState({
+        name:""
+    })
+    const handleChange=(event)=>{
+        setGame({
+            ...game,
+            [event.target.name]:event.target.value
+        })
+    }
+
+    const handleSubmit=(event)=>{
+        event.preventDefault();
+        dispatch(getVideoGamesName(game.name))
+
+        
+    }
+    
   return (
     <div className='nav-cont'>
         <div className='nav-img-cont'>
@@ -13,10 +34,10 @@ const Navbar = () => {
             <Link to={"/create"} className="link">Formulario</Link>
         </div>
         <div>
-            <form>
-                <input type='text' name="" id=""/>
-                <input type='submit' name="" id=""/>
-            </form>
+           
+            <input type='text'  placeholder="Name of Game"name="name" onChange={handleChange}/>
+            <button type='submit' name="" onClick={handleSubmit}>Submit</button>
+            
         </div>
     </div>
   )

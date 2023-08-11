@@ -3,6 +3,12 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
+    border:1rem solid #21264b;
+    margin: 5rem;
+    margin-left: 35rem;
+    padding: 5rem;
+    width: 25rem;
+    background-color:#13293D ;
 }
 .form-cont form input {
     width: 15rem;
@@ -13,4 +19,30 @@
 }
 .form-error{
     color:red
+}
+.form{
+    color:white
+}
+.div_platform,
+.div_gender{
+    background-color: #21264b;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+    
+}
+.div_platform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+   
+}
+.div_platform_global,
+.div_gender_global{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 34.5rem;
 }

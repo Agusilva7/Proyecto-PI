@@ -30,16 +30,27 @@ const Home = () => {
   
   return (
     <div className={Style.div_cont}>
-        <h1>Home</h1>
         <div className={Style.filtros}>
-          <label>Filtros/Ordenamiento</label>
-          <button name="az" onClick={orderByName}>A-Z</button>
-          <button name="za" onClick={orderByName}>Z-A</button>
+
+          <label>Ordenamiento</label>
+        
+          <div className={Style.div_Az}>
+            <img name="az" onClick={orderByName} className={Style.az} src='https://cdn-icons-png.flaticon.com/512/81/81456.png'/>
+          </div>
+
+          <div className={Style.div_Za}>
+            <img name="za" onClick={orderByName} className={Style.za} src="https://cdn-icons-png.flaticon.com/512/80/80874.png"/>
+          </div>
+      
           <label>Paginado</label>
-          <button name="prev" onClick={paginate}>Prev</button>
-          <button name="next" onClick={paginate}>Next</button>
-          <button onClick={()=>{dispatch(clear())}}>Clear</button>
+
+          <img name="prev" onClick={paginate} src="https://iili.io/Htm3aP2.th.png" className={Style.flecha}/>
+          <img name="next" onClick={paginate} className={Style.flecha2} src="https://iili.io/HtykI7n.th.png"></img>
+          
+          <label>REFRESH</label>
+          <img className={Style.return} src="https://iili.io/Htt5HjS.th.png" onClick={()=>{dispatch(clear())}}></img>
         </div>
+        
         
         <div>
           {gameName.length?<Cards info={gameName}/>:<Cards info={allVideoGames}/>}

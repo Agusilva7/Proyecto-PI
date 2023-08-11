@@ -1,12 +1,13 @@
-import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,CLEAR} from "../Actions/action-types";
+import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,POST_VIDEOGAMES,CLEAR} from "../Actions/action-types";
 import axios from "axios"
 
 export function getVideoGames(){
     return async function(dispatch){
         //logica de la action
+
         try {
             const response = await axios.get("http://localhost:3001/videogames")
-           
+            
             dispatch({
                 type:GET_VIDEOGAMES,
                 payload:response.data
@@ -51,6 +52,21 @@ export function getVideoGamesName(name){
     }
 }
 
+export function postVideoGames(body){
+    return async function(dispatch){
+
+        try {
+            
+            const response=await axios.post("http://localhost:3001/videogames/",body)
+            dispatch({
+                type:POST_VIDEOGAMES,
+                payload:response.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
 export function hoja (direccion){
     return async function (dispatch){
         try {

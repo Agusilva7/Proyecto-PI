@@ -3,4 +3,5 @@ export const PAGINATE="PAGINATE";
 export const ORDER="ORDER";
 export const GET_VIDEOGAMES_ID= "GET_VIDEOGAMES_ID";
 export const GET_VIDEOGAMES_NAME="GET_VIDEOGAMES_NAME";
+export const POST_VIDEOGAMES="POST_VIDEOGAMES";
 export const CLEAR="CLEAR";

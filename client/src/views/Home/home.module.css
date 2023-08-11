@@ -10,6 +10,33 @@ h1{
 }
 .filtros{
    display: flex;
+   align-items: center;
    justify-content: center;
-   gap:2rem
+   gap:2rem;
+
+}
+.flecha,
+.return{
+    width: 5rem;
+    height: 4.9rem;
+   
+}
+.flecha2{
+    width: 5rem;
+    height: 4.9rem;
+}
+.div_Az,
+.div_Za{
+    background-color: white;
+    width: 6rem;
+    height: 4.5rem;
+    border-radius: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:0.2rem solid black
+}
+.az,
+.za{
+    width: 5rem
 }

@@ -11,7 +11,7 @@ const Details = () => {
   const id=useParams();
   const dispatch=useDispatch();
   const gameDetail=useSelector((state)=>state.gameDetail)
-  
+
   useEffect(()=>{
     dispatch(getVideoGamesId(id.id))
     return ()=>{

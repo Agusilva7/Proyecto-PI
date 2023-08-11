@@ -1,5 +1,6 @@
 require('dotenv').config();
 const {DB_USER, DB_PASSWORD, DB_HOST,API_KEY} = process.env;
+const {Videogames,Genres}=require("../db")
 
 const axios= require("axios")
 
@@ -7,8 +8,19 @@ const axios= require("axios")
 const getVideoGamesController=async()=>{
     const games=[]
     let aux=1
-    while (aux<6){
-        const {data}=await axios(`https://api.rawg.io/api/games?key=${API_KEY}&page=${aux}`)
+    const gameDB=await Videogames.findAll({
+        include:[
+          {
+            model: Genres,
+            attributes:["name"],
+            through:{attributes:[]}
+          }
+        ]
+        
+      });
+      console.log(gameDB)
+    while (aux<4){
+        const {data}=await axios(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40&page=${aux}`)
         if (data.results){
             data.results.forEach(juego=> {
                 const videoGame={
@@ -16,7 +28,6 @@ const getVideoGamesController=async()=>{
                     name:juego.name,
                     image:juego.background_image,
                     platforms:juego.platforms,
-                    slug:juego.slug,
                     released:juego.released,
                     rating:juego.rating,
                     genres:juego.genres
@@ -27,7 +38,7 @@ const getVideoGamesController=async()=>{
         aux+=1;
         // console.log(games.length)
     }
-    return games
+    return gameDB.concat(games)
 
    
 }

@@ -4,21 +4,28 @@ const {API_KEY} = process.env;
 
 const {Genres}=require("../db")
 const axios= require("axios")
-const getGenresControllers=async()=>{
-    const baseDeDatos=Genres.findAll()
-    const {data}=await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-    if (data.results && !(await baseDeDatos).length){
-        const array=data.results.map(juego=>{
-            const videoGame={
-                id:juego.id,
-                name:juego.name
-            }
-            return videoGame
-        })
 
-        const generos=await Genres.bulkCreate(array)
-        return generos
+const getGenresControllers=async()=>{
+    //llamo a la base de datos
+    const dataBaseGenres=Genres.findAll()
+
+    const {data}=await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+    //si no hay nada en la base de datos
+    const array=data.results.map(genres=>{
+        const videoGame={
+            id:genres.id,
+            name:genres.name
+        }
+        return videoGame
+    })
+    if (data.results && !(await dataBaseGenres).length){
+        //para crear los generos en la base de datos
+        const genres=await Genres.bulkCreate(array)
+
+        return genres
     }
-    throw new Error("base de datos ya esta llena")
+    return array
+ 
+    
 }
 module.exports=getGenresControllers;

@@ -10,24 +10,26 @@ const getVideoGamesNameController=async(name)=>{
         const {data}=await axios(`https://api.rawg.io/api/games?key=${API_KEY}&page=${aux}`)
         
         if (data){
-            data.results.forEach(juego=> {
+            data.results.forEach(game=> {
                 
                 const videoGame={
-                    id:juego.id,
-                    name:juego.name,
-                    image:juego.background_image,
-                    platforms:juego.platforms,
-                    released:juego.released,
-                    rating:juego.rating,
-                    genres:juego.genres
+                    id:game.id,
+                    name:game.name,
+                    image:game.background_image,
+                    platforms:game.platforms,
+                    released:game.released,
+                    rating:game.rating,
+                    genres:game.genres
                 }
                 games.push(videoGame);
             })
             aux+=1
         } 
     }
-    const result = games.filter(juego=>juego.name.toLowerCase().includes(name.toLowerCase()));
-    console.log(result.length)
+    const result = games.filter(game=>game.name.toLowerCase().includes(name.toLowerCase()));
+    
+    // console.log(result.length)
+
     if (!result.length)throw new Error("Este juego no esta disponible TUKI!!")
     return result.slice(0,15)
     

@@ -1,12 +1,12 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
     allVideoGamesBackUp:[],
     gameDetail:[],
     gameName:[],
-    gameGenero:[],
-    plataformas:[],
+    gameGenres:[],
+    gamePlatforms:[],
     currentPage:0,
 };
 
@@ -15,24 +15,37 @@ function rootReducer(state=initialState,action){
     switch (action.type) {
 
         case GET_VIDEOGAMES:
-            const generos = new Set();
-            const plataformas = new Set();
+            const gamePlatforms = new Set();
+           
             action.payload.forEach(game=> {
-                game.genres?.forEach(genero=>{
-                    generos.add(genero.name);
-                })
-                game.platforms?.forEach((plataforma)=>{
-                    plataformas.add(plataforma.platform.name)
-                })
+                console.log(game)
+                if (Number.isInteger(game.id)){
+                    game.platforms.forEach((platforms)=>{
+                        if (platforms.platform.name){
+                            gamePlatforms.add(platforms.platform.name)
+                        }
+                    })
+                }
+
+                
             });
             return{
                 ...state,
                 allVideoGames:[...action.payload].splice(0,ITEMS_PER_PAGE),
                 allVideoGamesBackUp:action.payload,
-                gameGenero:generos,
-                plataformas:plataformas
+                gamePlatforms:gamePlatforms
             }
-
+        
+        case GET_VIDEOGAMES_GENRES:
+            const genresGame=[]
+            action.payload?.forEach(genres=> {
+                genresGame.push(genres.name)
+            });
+            return{
+                ...state,
+                gameGenres:genresGame
+            }
+           
         case GET_VIDEOGAMES_ID:
             return {
                 ...state,

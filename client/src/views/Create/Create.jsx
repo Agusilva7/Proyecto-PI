@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import "./Create.css";
 import { useSelector,useDispatch} from "react-redux";
-import { postVideoGames } from "../../Redux/Actions/actions";
+import { postVideoGames ,getVideoGamesGenres} from "../../Redux/Actions/actions";
+import { useEffect } from "react";
+
 const Create = () => {
   const dispatch=useDispatch();
 
-  const plataformas = useSelector((state) => state.plataformas);
-  const gameGenero = useSelector((state) => state.gameGenero);
+  const gamePlatforms = useSelector((state) => state.gamePlatforms);
+  const gameGenres = useSelector((state) => state.gameGenres);
+
+
+
   const [state, setState] = useState({
     name: "",
-    descripcion: "",
-    imagen: "",
-    lanzamiento: "",
+    description: "",
+    image: "",
+    released: "",
     rating: ""
   });
   
@@ -22,9 +27,9 @@ const Create = () => {
 
   const [error, setError] = useState({
     name: "*Este campo es obligatorio",
-    descripcion: "*Este campo es obligatorio",
-    imagen: "*Este campo es obligatorio",
-    lanzamiento: "*Este campo es obligatorio",
+    description: "*Este campo es obligatorio",
+    image: "*Este campo es obligatorio",
+    released: "*Este campo es obligatorio",
     rating: "*Este campo es obligatorio",
   });
 
@@ -34,7 +39,7 @@ const Create = () => {
 
     // console.log( [event.target.name], event.target.value)
 
-    if (event.target.name==="genero"){
+    if (event.target.name==="gender"){
       if (!gender.find(gen=>gen===event.target.value)){
         setGender([
           ...gender,
@@ -46,7 +51,7 @@ const Create = () => {
       }
       
     }
-    if (event.target.name==="plataformas"){
+    if (event.target.name==="platforms"){
       if (!platform.find(plat=>plat===event.target.value)){
         setPlatform([
           ...platform,
@@ -76,12 +81,12 @@ const Create = () => {
     event.preventDefault();
     const body={
       name:state.name,
-      descripción:state.descripcion,
-      plataformas:platform,
-      imagen:state.imagen,
-      fechaDeLanzamiento:state.lanzamiento,
+      description:state.description,
+      platforms:platform,
+      image:state.image,
+      released:state.released,
       rating:parseInt(state.rating),
-      genero:gender
+      genres:gender
     }
     dispatch(postVideoGames(body));
   };
@@ -99,7 +104,7 @@ const Create = () => {
   };
 
   const validate = (state, name) => {
-    const regex=/[0-9]/g;
+  
     //!nombre
     if (name === "name") {
       //validacion que no este vacio
@@ -116,7 +121,7 @@ const Create = () => {
         return;
       }
       //validacion de longitud
-      if(state.name.length<10){
+      if(state.name.length<30){
         setError({
           ...error,
           name:""
@@ -124,84 +129,70 @@ const Create = () => {
       }else{
         setError({
           ...error,
-          name:"El nombre debe tener menos de 10 caracteres"
-        })
-        return;
-      }
-
-      //validacion que no contenga un numero
-      if(!regex.test(state.name)){
-        setError({
-          ...error,
-          name:""
-        })
-      }else{
-        setError({
-          ...error,
-          name:"El nombre tiene que ser solo letras"
+          name:"El nombre debe tener menos de 30 caracteres"
         })
         return;
       }
     }
     //!Descripcion
-    if (name ==="descripcion"){
+    if (name ==="description"){
       //validacion que no este vacio 
-      if (state.descripcion !== ""){
+      if (state.description!== ""){
         setError({
           ...error,
-          descripcion:"",
+          description:"",
         });
       }
       else{
         setError({
           ...error,
-          descripcion: "Este campo es obligatorio",
+          description: "Este campo es obligatorio",
         });
         return;
       }
     }
 
     //!Imagen
-    if (name ==="imagen"){
-      if (state.imagen !== ""){
+    if (name ==="image"){
+      if (state.image !== ""){
         setError({
           ...error,
-          imagen:"",
+          image:"",
         });
       }
       else{
         setError({
           ...error,
-          imagen: "Este campo es obligatorio",
+          image: "Este campo es obligatorio",
         });
         return;
       }
     }
 
     //!Fecha de lanzamiento
-    if (name ==="lanzamiento"){
-      if (state.lanzamiento !== ""){
+    if (name ==="released"){
+      if (state.released!== ""){
         setError({
           ...error,
-          lanzamiento:"",
+          released:"",
         });
       }
       else{
         setError({
           ...error,
-          lanzamiento: "Este campo es obligatorio",
+          released: "Este campo es obligatorio",
         });
         return;
       }
-      if(!isNaN(parseInt(state.lanzamiento))){
+      if(!isNaN(parseInt(state.released))){
         setError({
           ...error,
-          lanzamiento:""
+          released:""
         })
       }else{
         setError({
           ...error,
-          lanzamiento:"La fecha de lanzamiento tiene que ser un numero"
+          released:"La fecha de lanzamiento tiene que ser un numero"
         })
         return;
       }
@@ -258,7 +249,7 @@ const Create = () => {
   }
   const eliminar2=(index)=>{
     const clear=gender[index]
-    let filtrado=gender.filter(genero=>genero!==clear)
+    let filtrado=gender.filter(gen=>gen!==clear)
     setGender([...filtrado])
   }
 
@@ -270,16 +261,16 @@ const Create = () => {
         <label className="form-error">{error.name}</label>
 
         <label>Descripción:</label>
-        <input name="descripcion" type="text" onChange={handleChange} />
-        <label className="form-error">{error.descripcion}</label>
+        <input name="description" type="text" onChange={handleChange} />
+        <label className="form-error">{error.description}</label>
 
         <label>Imagen:</label>
-        <input name="imagen" type="text" onChange={handleChange} />
-        <label className="form-error">{error.imagen}</label>
+        <input name="image" type="text" onChange={handleChange} />
+        <label className="form-error">{error.image}</label>
 
         <label>Fecha de lanzamiento:</label>
-        <input name="lanzamiento" type="date" onChange={handleChange} />
-        <label className="form-error">{error.lanzamiento}</label>
+        <input name="released" type="date" onChange={handleChange} />
+        <label className="form-error">{error.released}</label>
 
         <label>Rating:</label>
         <input name="rating" type="text" onChange={handleChange} />
@@ -287,11 +278,11 @@ const Create = () => {
 
         <label>Genero:</label>
       
-        <select name="genero" onChange={handleChange}>
-          {[...gameGenero].map((genero, index) => {
+        <select name="gender" onChange={handleChange}>
+          {[...gameGenres].map((genres, index) => {
             return (
-              <option key={index} value={genero} >
-                {genero}
+              <option key={index} value={genres} >
+                {genres}
               </option>
             );
           })}
@@ -307,12 +298,13 @@ const Create = () => {
               )
               })}
           </div>
-        <label className='form-error'>{error.phone}</label>
+
+        {/* <label className='form-error'>{error.phone}</label> */}
 
         <label>Plataformas:</label>
        
-        <select name="plataformas" onChange={handleChange}>
-          {[...plataformas].map((plataforma, index) => {
+        <select name="platforms" onChange={handleChange}>
+          {[...gamePlatforms].map((plataforma, index) => {
             return (
               <option key={index} value={plataforma} >
                 {plataforma}
@@ -321,18 +313,19 @@ const Create = () => {
           })}
         </select>
         <div className="div_platform_global">
-          {platform?.map((plataforma,index)=>{
+          {platform?.map((platform,index)=>{
             
             return(
               <div className="div_platform">
-                <div>{plataforma}</div>
+                <div>{platform}</div>
                 <button type="button" onClick={()=>{eliminar(index)}} >X</button>
               </div>
             )
           })}
         </div>
          
-        <label className='form-error'>{error.phone}</label> 
+        
+        {/* <label className='form-error'>{error.phone}</label>  */}
         <input disabled={disable()} className="form-button" type="submit" />
       </form>
      

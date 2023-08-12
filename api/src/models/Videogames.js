@@ -14,19 +14,19 @@ module.exports = (sequelize) => {
       allowNull: false,
       
     },
-    descripción:{
+    description:{
       type:DataTypes.STRING,
       allowNull:false
     },
-    plataformas:{
+    platforms:{
       type:DataTypes.ARRAY(DataTypes.STRING),
       allowNull:false
     },
-    imagen:{
+    image:{
       type:DataTypes.STRING,
       allowNull:false
     },
-    fechaDeLanzamiento:{
+    released:{
       type:DataTypes.DATEONLY
     },
     rating:{

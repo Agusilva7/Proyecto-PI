@@ -20,20 +20,22 @@ const Details = () => {
   },[])
 
   
-  
-  const generos= new Set();
-  const plataformas= new Set();
-
-  gameDetail.genres?.forEach((element)=> {
-    generos.add(element.name)
-  });
-
-  gameDetail.platforms?.forEach((element)=>{
-    plataformas.add(element.platform.name)
-  })
-
+  const genres= new Set();
+  const plataforms= new Set();
   const regex = /<\/?[a-z][\s\S]*?>/ig;
-  const detalle=gameDetail.descripcion?.replace(regex,"")
+  const detail=gameDetail.description?.replace(regex,"")
+
+  if (Number.isInteger(gameDetail.id)){
+
+    gameDetail.genres?.forEach((element)=> {
+      genres.add(element.name)
+    });
+  
+    gameDetail.platforms?.forEach((element)=>{
+      plataforms.add(element.platform.name)
+    })
+  
+  }
     
 
 
@@ -47,15 +49,18 @@ const Details = () => {
         <div className={Style.div_img}>
           <img src={gameDetail.image}/>
         </div>
-        <h5>Geners: {generos}</h5>
-        <h5>Plataforms: {plataformas}</h5>
+
+        {Number.isInteger(gameDetail.id)?<h5>Genres: {genres}</h5>:<h5>Geners: {gameDetail.genres}</h5>}
+        
+        {Number.isInteger(gameDetail.id)?<h5>Platforms: {plataforms}</h5>:<h5>Platforms: {gameDetail.plataforms}</h5>}
+       
         <h5>Rating : {gameDetail.rating}</h5>
 
         <h5>Fecha de lanzamiento : {gameDetail.released}</h5>
 
       </div>
       <div className={Style.descrip}>
-        <p>{detalle}</p>
+        <p>{detail}</p>
       </div>
     </div>
     

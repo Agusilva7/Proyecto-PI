@@ -3,13 +3,15 @@
     flex-direction: column;
     justify-content:center;
     align-items: center;
-    border:1rem solid #21264b;
+    border:1rem solid #8022FF;
     margin: 5rem;
+    border-radius: 5rem;
     margin-left: 35rem;
     padding: 5rem;
     width: 25rem;
-    background-color:#13293D ;
+    background-color:#020534c8;
 }
+
 .form-cont form input {
     width: 15rem;
 }

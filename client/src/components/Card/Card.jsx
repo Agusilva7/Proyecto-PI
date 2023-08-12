@@ -1,8 +1,8 @@
 import React from 'react'
 import Style from "./card.module.css"
 import {Link} from "react-router-dom"
-import Details from '../../views/Details/Details'
-import { getVideoGamesId } from '../../Redux/Actions/actions'
+// import Details from '../../views/Details/Details'
+// import { getVideoGamesId } from '../../Redux/Actions/actions'
 
 
 const Card = ({name,genres,image,id}) => {

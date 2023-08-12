@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { clear, getVideoGames, hoja, orderName} from '../../Redux/Actions/actions'
+import { clear, getVideoGames,getVideoGamesGenres, hoja, orderName} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
@@ -7,18 +7,16 @@ import Cards from "../../components/Cards/Cards"
 const Home = () => {
 
   const dispatch=useDispatch();
-
+  useEffect(()=>{
+    if (!allVideoGames.length){
+      dispatch(getVideoGames())
+    }
+    dispatch(getVideoGamesGenres())
+    
+  },[])
+  
   const allVideoGames=useSelector((state)=>state.allVideoGames)
   const gameName=useSelector((state)=>state.gameName)
-
-
-
-  useEffect(()=>{
-    dispatch(getVideoGames())
-  
-    //se ejecuta cuando el componente se monte.
-    // return(getVideoGamesId(id))
-  },[])
 
   const paginate=(event)=>{
     dispatch(hoja(event.target.name))

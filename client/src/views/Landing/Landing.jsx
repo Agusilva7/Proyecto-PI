@@ -1,7 +1,13 @@
 import React from "react";
 import Style from "./landing.module.css";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch ,useSelector} from "react-redux";
+import { getVideoGamesGenres ,getVideoGames } from "../../Redux/Actions/actions";
 const Landing = () => {
+  const allVideoGames=useSelector((state)=>state.allVideoGames)
+  const dispatch=useDispatch();
+
   return (
     <div className={Style.cont}>
       <Link to={"/home"}>

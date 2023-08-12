@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,POST_VIDEOGAMES,CLEAR} from "../Actions/action-types";
+import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,POST_VIDEOGAMES,GET_VIDEOGAMES_GENRES,CLEAR} from "../Actions/action-types";
 import axios from "axios"
 
 export function getVideoGames(){
@@ -14,7 +14,7 @@ export function getVideoGames(){
             })
            
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
         }
     }
 }
@@ -30,7 +30,7 @@ export function getVideoGamesId(id){
             })
            
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
         }
 
     }
@@ -39,9 +39,9 @@ export function getVideoGamesId(id){
 export function getVideoGamesName(name){
     return async function (dispatch){
         try {
-            console.log(name)
+            
             const response=await axios.get(`http://localhost:3001/videogames/name?name=${name}`)
-            console.log(response.data)
+         
             dispatch({
                 type:GET_VIDEOGAMES_NAME,
                 payload:response.data
@@ -51,10 +51,22 @@ export function getVideoGamesName(name){
         }
     }
 }
-
+export function getVideoGamesGenres(){
+    return async function (dispatch){
+        try {
+            const response=await axios.get("http://localhost:3001/genres")
+            dispatch({
+                type:GET_VIDEOGAMES_GENRES,
+                payload:response.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
 export function postVideoGames(body){
     return async function(dispatch){
-
+        console.log(body)
         try {
             
             const response=await axios.post("http://localhost:3001/videogames/",body)
@@ -67,24 +79,24 @@ export function postVideoGames(body){
         }
     }
 }
-export function hoja (direccion){
+export function hoja (direction){
     return async function (dispatch){
         try {
             dispatch({
                 type:PAGINATE,
-                payload:direccion
+                payload:direction
             })
         } catch (error) {
             console.log(error.message)
         }
     }
 }
-export function orderName (direccion){
+export function orderName (direction){
     return async function (dispatch){
         try {
             dispatch({
                 type:ORDER,
-                payload:direccion
+                payload:direction
             })
         } catch (error) {
             console.log(error.message)

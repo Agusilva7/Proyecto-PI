@@ -6,8 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#21264b;  
-    border:solid 0.4rem #13293D;
+    background-color:#21264bf2;  
+    border:solid 0.4rem #8222ffb7;
     border-radius: 1.2rem;
     margin: 2.2rem;
     padding: 1rem;
@@ -22,11 +22,11 @@
     height: 17.5rem;
 }
 .detalle{
-  border: 1px solid white;
+  border: 3px solid rgb(165, 42, 42);
   padding: 0.5rem;
 }
 .descrip{
-    background-color: brown;
+    background-color: rgb(165, 42, 42);
     width: 50rem;
 }
 .name{

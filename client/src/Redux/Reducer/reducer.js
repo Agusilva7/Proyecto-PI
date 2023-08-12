@@ -18,7 +18,7 @@ function rootReducer(state=initialState,action){
             const gamePlatforms = new Set();
            
             action.payload.forEach(game=> {
-                console.log(game)
+             
                 if (Number.isInteger(game.id)){
                     game.platforms.forEach((platforms)=>{
                         if (platforms.platform.name){

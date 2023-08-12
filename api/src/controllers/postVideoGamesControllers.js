@@ -17,17 +17,16 @@ const postVideoGamesController =async(name,description,platforms,image,released,
             platforms,
             image,
             released,
-            rating
+            rating  
         }
     )
     for (let i =0 ;i<genres.length;i++){
-        const genres=await Genres.findOne({
+        const genresDb=await Genres.findOne({
             where:{
                 name:genres[i]
             },
         });
-        if (!genres)throw new Error("Este genero no existe Salamin con patas!!");
-        await newVideoGame.addGenres(genres.id);
+        await newVideoGame.addGenres(genresDb.id);
     }
     const returnCreatedGame=await Videogames.findOne({
         where:{id:newVideoGame.id},

@@ -153,6 +153,12 @@ function rootReducer(state=initialState,action){
             }
 
         case CLEAR:
+            if (!state.gameName.length){
+                return{
+                ...state,
+                allVideoGames:[...state.allVideoGamesBackUp].splice(0,ITEMS_PER_PAGE),
+                }
+            }
             return{
                 ...state,
                 gameDetail:action.payload,

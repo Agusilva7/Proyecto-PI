@@ -22,11 +22,11 @@
     height: 17.5rem;
 }
 .detalle{
-  border: 3px solid rgb(165, 42, 42);
+  border: 3px solid #8222ff9b;
   padding: 0.5rem;
 }
 .descrip{
-    background-color: rgb(165, 42, 42);
+    background-color: #8022FF;
     width: 50rem;
 }
 .name{

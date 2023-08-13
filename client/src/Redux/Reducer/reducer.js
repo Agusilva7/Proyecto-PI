@@ -1,12 +1,14 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
     allVideoGamesBackUp:[],
+    filterBackUp:[],
     gameDetail:[],
     gameName:[],
     gameGenres:[],
     gamePlatforms:[],
+    filterGenres:[],
     currentPage:0,
 };
 
@@ -33,7 +35,9 @@ function rootReducer(state=initialState,action){
                 ...state,
                 allVideoGames:[...action.payload].splice(0,ITEMS_PER_PAGE),
                 allVideoGamesBackUp:action.payload,
-                gamePlatforms:gamePlatforms
+                gamePlatforms:gamePlatforms,
+                filterBackUp:action.payload
+                
             }
         
         case GET_VIDEOGAMES_GENRES:
@@ -114,6 +118,38 @@ function rootReducer(state=initialState,action){
                     currentPage:0
                 }
 
+            }
+        case FILTER_GENRES:
+            const filterVideoGames=[];
+            [...state.filterBackUp].forEach(game=>game.genres.forEach(genre=>{if (genre.name===action.payload){filterVideoGames.push(game)}}))
+            
+            return{
+                ...state,
+                filterGenres:filterVideoGames,
+                allVideoGames:[...filterVideoGames].splice(0,ITEMS_PER_PAGE)
+            }
+        case FILTER_PLATFORMS:
+            const filterGames=[];
+            [...state.filterBackUp].forEach(game=>{
+                if(Number.isInteger(game.id)){
+              
+                    game.platforms.forEach(plat=>{
+                        console.log(plat)
+                        if (plat.platform.name===action.payload){
+                            filterGames.push(game)
+                        }
+                    })
+                }else{
+                    game.platforms.forEach(platform=>{
+                        if (platform===action.payload){
+                            filterGames.push(game)
+                        }
+                    })
+                }
+            })
+            return{
+                ...state,
+                allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE)
             }
 
         case CLEAR:

@@ -10,16 +10,18 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 4rem;
+    height: 4.3rem;
 }
 .nav-img-cont img{
     width: 7rem;
+    margin-top: 0.5rem;
     
 }
 
 .nav-link-cont{
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    /* justify-content: space-around; */
     width: 10rem;
     font-family: "Font";
     border-radius: 1rem;
@@ -28,7 +30,35 @@
    
 
 }
+
+.nav-img-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-img-home img{
+    height: 4.1rem;
+}
+.nav-img-form img{
+    height: 3rem;
+}
 .link{
     color:rgb(255, 255, 255);
     
+}
+.input-nav{
+    margin-right: -19rem;
+    background-color: #2A1280;
+    color:white;
+    border-radius: 1rem;
+    height: 2rem;
+}
+.button-nav{
+    background-color: #FF3AA4;
+    border-radius: 1rem;
+    margin-left: 19.5rem;
+    height: 2rem;
+}
+.div_img img{
+    height: 4.3rem;
 }

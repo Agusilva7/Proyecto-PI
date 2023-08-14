@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS,FILTER_GAMES} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
@@ -150,6 +150,27 @@ function rootReducer(state=initialState,action){
             return{
                 ...state,
                 allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE)
+            }
+
+        case FILTER_GAMES:
+            const locationVideoGames=[];
+            console.log(action.payload)
+            if (action.payload==="Game DB"){
+                [...state.filterBackUp].forEach((element)=>{
+                    if(!Number.isInteger(element.id)){
+                        locationVideoGames.push(element)
+                    }
+                })
+            }else{
+                [...state.filterBackUp].forEach((element)=>{
+                    if(Number.isInteger(element.id)){
+                        locationVideoGames.push(element)
+                    }
+                })
+            }
+            return{
+                ...state,
+                allVideoGames:[...locationVideoGames].splice(0,ITEMS_PER_PAGE)
             }
 
         case CLEAR:

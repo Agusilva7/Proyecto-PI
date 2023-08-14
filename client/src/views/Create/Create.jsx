@@ -1,7 +1,7 @@
 import React, {useState } from "react";
 import "./Create.css";
 import { useSelector,useDispatch} from "react-redux";
-import { postVideoGames ,getVideoGamesGenres} from "../../Redux/Actions/actions";
+import { postVideoGames ,getVideoGames} from "../../Redux/Actions/actions";
 import { useEffect } from "react";
 
 const Create = () => {
@@ -17,7 +17,8 @@ const Create = () => {
     description: "",
     image: "",
     released: "",
-    rating: ""
+    rating: "",
+    genres:""
   });
   
   const[gender,setGender]=useState([]);
@@ -31,23 +32,26 @@ const Create = () => {
     image: "*Este campo es obligatorio",
     released: "*Este campo es obligatorio",
     rating: "*Este campo es obligatorio",
+    genres:"*Este campo es obligatorio",
+    platforms:"*Este campo es obligatorio"
   });
 
   // const [aux, setAux] = React.useState(false);
 
   const handleChange = (event) => {
 
-    // console.log( [event.target.name], event.target.value)
-
     if (event.target.name==="gender"){
       if (!gender.find(gen=>gen===event.target.value)){
+      
         setGender([
           ...gender,
           event.target.value
           
         ])
-      }else{
-        console.log("ya esta repetido el genero")
+      }
+      else{
+        console.log("este juego ya existe")
+        
       }
       
     }
@@ -89,6 +93,8 @@ const Create = () => {
       genres:gender
     }
     dispatch(postVideoGames(body));
+    window.alert("se creo el juego con exito");
+    dispatch(getVideoGames());
   };
 
   const disable = () => {
@@ -104,7 +110,43 @@ const Create = () => {
   };
 
   const validate = (state, name) => {
-  
+
+    //!Platforms
+    if (name ==="platforms"){
+
+      if (platform.length || platform.length===0){
+        setError({
+          ...error,
+          platforms:""
+        })
+      }else{
+        setError({
+          ...error,
+          platforms:"Este campo es obligatorio"
+        })
+        return;
+      }
+    }      
+
+
+
+    //!Genres
+    if (name ==="gender"){
+
+      if (gender.length || gender.length===0){
+        setError({
+          ...error,
+          genres:""
+        })
+      }else{
+        setError({
+          ...error,
+          genres:"Este campo es obligatorio"
+        })
+        return;
+      }
+    }
+    
     //!nombre
     if (name === "name") {
       //validacion que no este vacio
@@ -240,9 +282,12 @@ const Create = () => {
         })
       }
     }
+
+    
   };
 
   const eliminar=(index)=>{
+    
     const clear=platform[index]
     let filtrado=platform.filter(plataforma=>plataforma!==clear)
     setPlatform([...filtrado])
@@ -299,7 +344,7 @@ const Create = () => {
               })}
           </div>
 
-        {/* <label className='form-error'>{error.phone}</label> */}
+        <label className='form-error'>{error.genres}</label>
 
         <label>Plataformas:</label>
        
@@ -325,7 +370,7 @@ const Create = () => {
         </div>
          
         
-        {/* <label className='form-error'>{error.phone}</label>  */}
+        <label className='form-error'>{error.platforms}</label> 
         <input disabled={disable()} className="form-button" type="submit" />
       </form>
      

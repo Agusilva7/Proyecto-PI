@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,POST_VIDEOGAMES,GET_VIDEOGAMES_GENRES,FILTER_GENRES,FILTER_PLATFORMS,CLEAR} from "../Actions/action-types";
+import { GET_VIDEOGAMES,ORDER,PAGINATE,GET_VIDEOGAMES_ID,GET_VIDEOGAMES_NAME,POST_VIDEOGAMES,GET_VIDEOGAMES_GENRES,FILTER_GENRES,FILTER_PLATFORMS,CLEAR, FILTER_GAMES} from "../Actions/action-types";
 import axios from "axios"
 
 export function getVideoGames(){
@@ -130,6 +130,7 @@ export function filterGenres(genres){
 }
 export function filterPlatforms(platform){
     return async function (dispatch){
+    
         try {
             dispatch({
                 type:FILTER_PLATFORMS,
@@ -138,5 +139,18 @@ export function filterPlatforms(platform){
         } catch (error) {
             console.log(error)
         }
+    }
+}
+export function filterGames(type){
+    return function async(dispatch){
+        try {
+            dispatch({
+                type:FILTER_GAMES,
+                payload:type
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { clear, getVideoGames,getVideoGamesGenres,filterGenres,filterPlatforms, hoja, orderName} from '../../Redux/Actions/actions'
+import { clear, getVideoGames,getVideoGamesGenres,filterGenres,filterPlatforms,filterGames, hoja, orderName} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
@@ -32,6 +32,9 @@ const Home = () => {
  }
  const optionPlatforms=(event)=>{
   dispatch(filterPlatforms(event.target.value))
+ }
+ const optionGames=(event)=>{
+  dispatch(filterGames(event.target.value))
  }
 
   return (
@@ -72,7 +75,7 @@ const Home = () => {
             </select>
           </div>
           <div className={Style.div_Games}>
-            <select>
+            <select onChange={optionGames}>
               <option>Game API</option>
               <option>Game DB</option>
             </select>

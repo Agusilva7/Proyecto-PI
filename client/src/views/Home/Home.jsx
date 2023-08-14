@@ -1,18 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { clear, getVideoGames,getVideoGamesGenres,filterGenres,filterPlatforms,filterGames, hoja, orderName} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
+import Loading from '../../components/Loader/loder'
 
 const Home = () => {
 
+  const [removeLoading,setRemoveLoading]=useState(false)
+
   const dispatch=useDispatch();
+  
   useEffect(()=>{
     if (!allVideoGames.length){
       dispatch(getVideoGames())
     }
     dispatch(getVideoGamesGenres())
-    
+
   },[])
   
   const gamePlatforms=useSelector((state)=>state.gamePlatforms)
@@ -39,6 +43,8 @@ const Home = () => {
 
   return (
     <div className={Style.div_cont}>
+       {allVideoGames.length<=0?(<Loading/>):(
+        <div>
         <div className={Style.filtros}>
 
           <label>Ordenamiento</label>
@@ -94,6 +100,8 @@ const Home = () => {
         <div>
           {gameName.length?<Cards info={gameName}/>:<Cards info={allVideoGames}/>}
         </div>
+        </div>
+       )}
         
     </div>
   )

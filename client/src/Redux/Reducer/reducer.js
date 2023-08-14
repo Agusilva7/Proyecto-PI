@@ -154,7 +154,7 @@ function rootReducer(state=initialState,action){
 
         case FILTER_GAMES:
             const locationVideoGames=[];
-            console.log(action.payload)
+         
             if (action.payload==="Game DB"){
                 [...state.filterBackUp].forEach((element)=>{
                     if(!Number.isInteger(element.id)){
@@ -185,10 +185,12 @@ function rootReducer(state=initialState,action){
                 gameDetail:action.payload,
                 gameName:[]
             }
+           
 
-
+       
         default:
             return state
+         
         
     }
     

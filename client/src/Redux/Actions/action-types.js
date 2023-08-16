@@ -9,3 +9,5 @@ export const FILTER_GENRES="FILTER_GENRES";
 export const FILTER_PLATFORMS="FILTER_PLATFORMS";
 export const FILTER_GAMES="FILTER_GAMES"
 export const CLEAR="CLEAR";
+export const ERROR="ERROR";
+export const REMOVE="REMOVE";

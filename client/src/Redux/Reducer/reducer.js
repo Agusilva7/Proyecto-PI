@@ -1,14 +1,15 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS,FILTER_GAMES} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS,FILTER_GAMES, ERROR,REMOVE} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
     allVideoGamesBackUp:[],
+
     filterBackUp:[],
+    error:[],
     gameDetail:[],
     gameName:[],
     gameGenres:[],
     gamePlatforms:[],
-    filterGenres:[],
     currentPage:0,
 };
 
@@ -35,8 +36,8 @@ function rootReducer(state=initialState,action){
                 ...state,
                 allVideoGames:[...action.payload].splice(0,ITEMS_PER_PAGE),
                 allVideoGamesBackUp:action.payload,
-                gamePlatforms:gamePlatforms,
-                filterBackUp:action.payload
+                filterBackUp:action.payload,
+                gamePlatforms:gamePlatforms
                 
             }
         
@@ -78,6 +79,7 @@ function rootReducer(state=initialState,action){
             else if (action.payload ==="prev" && prev_page < 0 ){
                 return {...state}
             }
+            
             return({
                 ...state,
                 allVideoGames:[...state.allVideoGamesBackUp].splice(firstIndex,ITEMS_PER_PAGE),
@@ -86,7 +88,8 @@ function rootReducer(state=initialState,action){
 
         case ORDER:
             if (action.payload === "az"){
-                const allVideoGamesOrder = [...state.allVideoGamesBackUp].sort((prev,next)=>{
+              
+                const allVideoGamesOrder = [...state.filterBackUp].sort((prev,next)=>{
                     if (prev.name>next.name){
                         return 1;
                     }
@@ -102,7 +105,7 @@ function rootReducer(state=initialState,action){
                     currentPage:0
                 }
             }else if (action.payload === "za"){
-                const allVideoGamesOrder = [...state.allVideoGamesBackUp].sort((prev,next)=>{
+                const allVideoGamesOrder = [...state.filterBackUp].sort((prev,next)=>{
                     if (prev.name>next.name){
                         return -1;
                     }
@@ -121,16 +124,20 @@ function rootReducer(state=initialState,action){
             }
         case FILTER_GENRES:
             const filterVideoGames=[];
-            [...state.filterBackUp].forEach(game=>game.genres.forEach(genre=>{if (genre.name===action.payload){filterVideoGames.push(game)}}))
+            [...state.allVideoGamesBackUp].forEach(game=>game.genres.forEach(genre=>{if (genre.name===action.payload){filterVideoGames.push(game)}}))
+            if (!filterVideoGames.length){
+                window.alert( "no se encontro nigun genres")
+                break
+            }
             
             return{
                 ...state,
-                filterGenres:filterVideoGames,
-                allVideoGames:[...filterVideoGames].splice(0,ITEMS_PER_PAGE)
+                allVideoGames:[...filterVideoGames].splice(0,ITEMS_PER_PAGE),
+                filterBackUp:filterVideoGames,
             }
         case FILTER_PLATFORMS:
             const filterGames=[];
-            [...state.filterBackUp].forEach(game=>{
+            [...state.allVideoGamesBackUp].forEach(game=>{
                 if(Number.isInteger(game.id)){
               
                     game.platforms.forEach(plat=>{
@@ -147,9 +154,14 @@ function rootReducer(state=initialState,action){
                     })
                 }
             })
+            if (!filterGames.length){
+                window.alert("NO hay ningun juego en esta plataforma")
+                break
+            }
             return{
                 ...state,
-                allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE)
+                allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE),
+                filterBackUp:filterGames,
             }
 
         case FILTER_GAMES:
@@ -168,6 +180,11 @@ function rootReducer(state=initialState,action){
                     }
                 })
             }
+
+            if (!locationVideoGames.length){
+                window.alert("NO hay ningun juego")
+                break
+            }
             return{
                 ...state,
                 allVideoGames:[...locationVideoGames].splice(0,ITEMS_PER_PAGE)
@@ -183,11 +200,20 @@ function rootReducer(state=initialState,action){
             return{
                 ...state,
                 gameDetail:action.payload,
-                gameName:[]
+                gameName:[],
             }
            
-
-       
+        case REMOVE:
+            return{
+                ...state,
+                error:action.payload,
+            }
+        case ERROR:
+            // console.log(action.payload)
+            return{
+                ...state,
+                error:[action.payload]
+            }
         default:
             return state
          

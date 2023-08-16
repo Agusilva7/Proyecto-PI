@@ -4,10 +4,11 @@ import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
 import Loading from '../../components/Loader/loder'
+import  Error  from '../../components/Error/error'
 
 const Home = () => {
 
-  const [removeLoading,setRemoveLoading]=useState(false)
+  // const [removeLoading,setRemoveLoading]=useState(false)
 
   const dispatch=useDispatch();
   
@@ -23,7 +24,8 @@ const Home = () => {
   const allVideoGames=useSelector((state)=>state.allVideoGames)
   const gameName=useSelector((state)=>state.gameName)
   const gameGenres=useSelector((state)=>state.gameGenres)
-
+  const error=useSelector((state)=>state.error)
+  console.log(error)
   const paginate=(event)=>{
     dispatch(hoja(event.target.name))
   }
@@ -43,7 +45,8 @@ const Home = () => {
 
   return (
     <div className={Style.div_cont}>
-       {allVideoGames.length<=0?(<Loading/>):(
+      
+      {allVideoGames.length<=0?(<Loading/>):(
         <div>
         <div className={Style.filtros}>
 
@@ -95,13 +98,16 @@ const Home = () => {
           <label>REFRESH</label>
           <img className={Style.return} src="https://iili.io/Htt5HjS.th.png" onClick={()=>{dispatch(clear())}}></img>
         </div>
+          {error.length?<Error/>:(
+          <div>
+            {gameName.length?<Cards info={gameName}/>:<Cards info={allVideoGames}/>}
+          </div>
+
+          )}
         
-        
-        <div>
-          {gameName.length?<Cards info={gameName}/>:<Cards info={allVideoGames}/>}
+      
         </div>
-        </div>
-       )}
+      )}
         
     </div>
   )

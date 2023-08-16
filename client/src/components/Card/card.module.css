@@ -5,6 +5,7 @@
 .card{
     background-color:#21264b;    
     width: 17rem;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;

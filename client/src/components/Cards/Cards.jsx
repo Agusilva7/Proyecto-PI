@@ -19,6 +19,7 @@ const Cards = ({info}) => {
       }
     </div>
   )
+  
 }
 
 export default Cards

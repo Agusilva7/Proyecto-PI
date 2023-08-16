@@ -1,0 +1,64 @@
+.div_cont_total{
+    display: flex;
+    justify-content: center;
+    height: 27.77rem;
+   
+}
+.div_cont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 23rem;
+}
+.div_cont img{
+    margin-left: 3.3rem;
+    width: 17rem;
+    height: 9.85rem;
+    
+}
+.div_button{
+    display: flex;
+    justify-content: center;
+  
+    margin-top: -9rem;
+    padding-right: 12rem;
+}
+.div_button button{
+    background-color:#000000;
+    color:red;
+    border:solid 0.1rem #ff0000
+}
+
+.div_img2{
+    /* background-color: #7cf8ff88; */
+    margin-left: 19.49rem;
+    width: 20rem;
+    /* rotate: -2deg; */
+
+}
+.div_img2 img{
+    width: 11.5rem;
+    height: 8.95rem;
+    border: solid 0.35rem black ;
+    transform: rotate(352deg) skew(-9deg);
+    margin-right: 1.3rem;
+}
+
+.div_dai{
+    display: flex;
+    height: 5rem;
+    justify-content: right;
+    margin-top: -5.9rem;
+
+}
+
+.div_dai img{
+    width: 11.55rem;
+    height: 9.7rem;
+    margin-top: -34rem;
+    margin-right: 24.5rem;
+    
+    transform:rotate(7.5deg) skew(7.9deg) ;
+    border:solid 0.1rem black
+}

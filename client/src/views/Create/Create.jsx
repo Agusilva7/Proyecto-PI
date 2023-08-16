@@ -2,7 +2,7 @@ import React, {useState } from "react";
 import "./Create.css";
 import { useSelector,useDispatch} from "react-redux";
 import { postVideoGames ,getVideoGames} from "../../Redux/Actions/actions";
-import { useEffect } from "react";
+
 
 const Create = () => {
   const dispatch=useDispatch();
@@ -50,6 +50,7 @@ const Create = () => {
         ])
       }
       else{
+
         console.log("este juego ya existe")
         
       }
@@ -93,7 +94,6 @@ const Create = () => {
       genres:gender
     }
     dispatch(postVideoGames(body));
-    window.alert("se creo el juego con exito");
     dispatch(getVideoGames());
   };
 
@@ -296,6 +296,13 @@ const Create = () => {
     const clear=gender[index]
     let filtrado=gender.filter(gen=>gen!==clear)
     setGender([...filtrado])
+    // if (!gender.length){
+    //   setError({
+    //     ...error,
+    //     genres:"Este campo es obligatorio"
+    //   })
+    //   return
+    // }
   }
 
   return (
@@ -324,6 +331,7 @@ const Create = () => {
         <label>Genero:</label>
       
         <select name="gender" onChange={handleChange}>
+          <option selected="selected" disabled="disabled">Select Genres 🎭</option>
           {[...gameGenres].map((genres, index) => {
             return (
               <option key={index} value={genres} >
@@ -338,7 +346,7 @@ const Create = () => {
               return(
                 <div className="div_gender">
                   <div>{gen}</div>
-                  <button type="button" onClick={()=>{eliminar2(index)}} >X</button>
+                  <button type="button" onClick={()=>{eliminar2(index)}} >❌</button>
                 </div>
               )
               })}
@@ -349,6 +357,7 @@ const Create = () => {
         <label>Plataformas:</label>
        
         <select name="platforms" onChange={handleChange}>
+          <option selected="selected" disabled="disabled">Select Platforms 🎮</option>
           {[...gamePlatforms].map((plataforma, index) => {
             return (
               <option key={index} value={plataforma} >
@@ -363,7 +372,7 @@ const Create = () => {
             return(
               <div className="div_platform">
                 <div>{platform}</div>
-                <button type="button" onClick={()=>{eliminar(index)}} >X</button>
+                <button type="button" onClick={()=>{eliminar(index)}} >❌</button>
               </div>
             )
           })}

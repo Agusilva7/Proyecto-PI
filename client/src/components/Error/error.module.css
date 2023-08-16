@@ -29,7 +29,10 @@
     color:red;
     border:solid 0.1rem #ff0000
 }
-
+.div_button button:hover{
+    font-size: 1.1rem;
+    filter: drop-shadow(0.5rem 0.5rem 0.5rem rgb(66, 3, 110)) invert(1%);
+}
 .div_img2{
     /* background-color: #7cf8ff88; */
     margin-left: 19.49rem;
@@ -61,4 +64,17 @@
     
     transform:rotate(7.5deg) skew(7.9deg) ;
     border:solid 0.1rem black
+}
+
+.div_text{
+    padding-top: 9.6rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem; 
+    color:#ff0000
+}
+.div_text h1,
+.div_text p{
+    text-align: center;
+    color:#ff0000
 }

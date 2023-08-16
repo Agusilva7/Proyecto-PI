@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS,FILTER_GAMES, ERROR,REMOVE} from "../Actions/action-types";
+import { GET_VIDEOGAMES, PAGINATE,ORDER , GET_VIDEOGAMES_ID,CLEAR, GET_VIDEOGAMES_NAME, POST_VIDEOGAMES, GET_VIDEOGAMES_GENRES, FILTER_GENRES, FILTER_PLATFORMS,FILTER_GAMES, ERROR,REMOVE, FILTER_RATING} from "../Actions/action-types";
 
 let initialState={
     allVideoGames:[],
@@ -64,6 +64,7 @@ function rootReducer(state=initialState,action){
             }
 
         case POST_VIDEOGAMES:
+            window.alert("se creo el juego correctamente")
             return{
                 ...state
             }
@@ -89,7 +90,7 @@ function rootReducer(state=initialState,action){
         case ORDER:
             if (action.payload === "az"){
               
-                const allVideoGamesOrder = [...state.filterBackUp].sort((prev,next)=>{
+                const allVideoGamesOrder = [...state.allVideoGamesBackUp].sort((prev,next)=>{
                     if (prev.name>next.name){
                         return 1;
                     }
@@ -105,7 +106,7 @@ function rootReducer(state=initialState,action){
                     currentPage:0
                 }
             }else if (action.payload === "za"){
-                const allVideoGamesOrder = [...state.filterBackUp].sort((prev,next)=>{
+                const allVideoGamesOrder = [...state.allVideoGamesBackUp].sort((prev,next)=>{
                     if (prev.name>next.name){
                         return -1;
                     }
@@ -124,7 +125,7 @@ function rootReducer(state=initialState,action){
             }
         case FILTER_GENRES:
             const filterVideoGames=[];
-            [...state.allVideoGamesBackUp].forEach(game=>game.genres.forEach(genre=>{if (genre.name===action.payload){filterVideoGames.push(game)}}))
+            [...state.filterBackUp].forEach(game=>game.genres.forEach(genre=>{if (genre.name===action.payload){filterVideoGames.push(game)}}))
             if (!filterVideoGames.length){
                 window.alert( "no se encontro nigun genres")
                 break
@@ -133,11 +134,11 @@ function rootReducer(state=initialState,action){
             return{
                 ...state,
                 allVideoGames:[...filterVideoGames].splice(0,ITEMS_PER_PAGE),
-                filterBackUp:filterVideoGames,
+                allVideoGamesBackUp:filterVideoGames,
             }
         case FILTER_PLATFORMS:
             const filterGames=[];
-            [...state.allVideoGamesBackUp].forEach(game=>{
+            [...state.filterBackUp].forEach(game=>{
                 if(Number.isInteger(game.id)){
               
                     game.platforms.forEach(plat=>{
@@ -161,7 +162,7 @@ function rootReducer(state=initialState,action){
             return{
                 ...state,
                 allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE),
-                filterBackUp:filterGames,
+                allVideoGamesBackUp:filterGames,
             }
 
         case FILTER_GAMES:
@@ -187,20 +188,50 @@ function rootReducer(state=initialState,action){
             }
             return{
                 ...state,
-                allVideoGames:[...locationVideoGames].splice(0,ITEMS_PER_PAGE)
+                allVideoGames:[...locationVideoGames].splice(0,ITEMS_PER_PAGE),
+                allVideoGamesBackUp:locationVideoGames
             }
-
-        case CLEAR:
-            if (!state.gameName.length){
-                return{
-                ...state,
-                allVideoGames:[...state.allVideoGamesBackUp].splice(0,ITEMS_PER_PAGE),
-                }
+        
+        case FILTER_RATING:
+           
+            console.log(state.filterBackUp)
+            let order;
+            if (action.payload==="Rating 👆"){
+                order=[...state.allVideoGamesBackUp].sort(function (a,b){
+                    if(a.rating>b.rating){
+                        return+1
+                    }
+                    if(a.rating<b.rating){
+                        return-1
+                    }
+                    return 0
+                })
+            }
+            if (action.payload==="Rating 👇"){
+                order=[...state.allVideoGamesBackUp].sort(function (a,b){
+                    if(a.rating<b.rating){
+                        return+1
+                    }
+                    if(a.rating>b.rating){
+                        return-1
+                    }
+                    return 0
+                })
             }
             return{
                 ...state,
-                gameDetail:action.payload,
-                gameName:[],
+                allVideoGames:[...order].splice(0,ITEMS_PER_PAGE),
+                allVideoGamesBackUp:order,
+                currentPage:0
+            }
+
+        case CLEAR:
+            return{
+                ...state,
+                allVideoGames:[...state.filterBackUp].splice(0,ITEMS_PER_PAGE),
+                allVideoGamesBackUp:state.filterBackUp,
+                currentPage:0
+                
             }
            
         case REMOVE:
@@ -209,7 +240,7 @@ function rootReducer(state=initialState,action){
                 error:action.payload,
             }
         case ERROR:
-            // console.log(action.payload)
+      
             return{
                 ...state,
                 error:[action.payload]

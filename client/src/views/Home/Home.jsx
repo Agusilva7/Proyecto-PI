@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { clear, getVideoGames,getVideoGamesGenres,filterGenres,filterPlatforms,filterGames, hoja, orderName} from '../../Redux/Actions/actions'
+import { clear, getVideoGames,getVideoGamesGenres,filterGenres,filterPlatforms,filterGames, hoja, orderName, filterRating} from '../../Redux/Actions/actions'
 import {useDispatch,useSelector}from 'react-redux'
 import Style from "./home.module.css"
 import Cards from "../../components/Cards/Cards"
@@ -20,12 +20,13 @@ const Home = () => {
 
   },[])
   
-  const gamePlatforms=useSelector((state)=>state.gamePlatforms)
-  const allVideoGames=useSelector((state)=>state.allVideoGames)
-  const gameName=useSelector((state)=>state.gameName)
-  const gameGenres=useSelector((state)=>state.gameGenres)
-  const error=useSelector((state)=>state.error)
-  console.log(error)
+  const gamePlatforms=useSelector((state)=>state.gamePlatforms);
+  const allVideoGames=useSelector((state)=>state.allVideoGames);
+  const gameName=useSelector((state)=>state.gameName);
+  const gameGenres=useSelector((state)=>state.gameGenres);
+  const error=useSelector((state)=>state.error);
+  const currentPage=useSelector((state)=>state.currentPage);
+
   const paginate=(event)=>{
     dispatch(hoja(event.target.name))
   }
@@ -42,6 +43,9 @@ const Home = () => {
  const optionGames=(event)=>{
   dispatch(filterGames(event.target.value))
  }
+ const optionRating=(event)=>{
+  dispatch(filterRating(event.target.value))
+ }
 
   return (
     <div className={Style.div_cont}>
@@ -50,7 +54,7 @@ const Home = () => {
         <div>
         <div className={Style.filtros}>
 
-          <label>Ordenamiento</label>
+          {/* <label>Ordenamiento</label> */}
         
           <div className={Style.div_Az}>
             <img name="az" onClick={orderByName} className={Style.az} src='https://cdn-icons-png.flaticon.com/512/81/81456.png'/>
@@ -63,6 +67,7 @@ const Home = () => {
           <label>Filtro </label>
           <div className={Style.div_Genres}>
             <select onChange={optionGenres}>
+              <option selected="selected" disabled="disabled">Select Genres 🎭</option>
               {gameGenres?.map((genres,index) => {
                 return(
                   <option key={index} > 
@@ -74,6 +79,7 @@ const Home = () => {
           </div>
           <div className={Style.div_Platforms}>
             <select onChange={optionPlatforms}>
+            <option selected="selected" disabled="disabled">Select Platforms 🎮</option>
               {[...gamePlatforms]?.map((platform,index)=>{
                 return(
                   <option key={index}>
@@ -85,14 +91,27 @@ const Home = () => {
           </div>
           <div className={Style.div_Games}>
             <select onChange={optionGames}>
+              <option selected="selected" disabled="disabled">API / DB 🎲</option>
               <option>Game API</option>
               <option>Game DB</option>
+            </select>
+          </div>
+
+          <div className={Style.div_Rating}>
+            <select onChange={optionRating}>
+              <option selected="selected" disabled="disabled">Select Rating 🔥</option>
+              <option>Rating 👆</option>
+              <option>Rating 👇</option>
+              <option></option>
             </select>
           </div>
 
           <label>Paginado</label>
 
           <img name="prev" onClick={paginate} src="https://iili.io/Htm3aP2.th.png" className={Style.flecha}/>
+          <div>
+            <h1>{currentPage}</h1>
+          </div>
           <img name="next" onClick={paginate} className={Style.flecha2} src="https://iili.io/HtykI7n.th.png"></img>
           
           <label>REFRESH</label>

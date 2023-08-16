@@ -29,6 +29,11 @@ const Error=()=>{
                     <img src="https://iili.io/HD4COwg.gif" />
                 </div>
             </div>
+            <div className={Style.div_text}>
+                <h1>404 Not Found</h1>
+                <p>i wanted to move on</p>
+                
+            </div>
 
         </div>
     )

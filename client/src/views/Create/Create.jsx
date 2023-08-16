@@ -36,7 +36,7 @@ const Create = () => {
     platforms:"*Este campo es obligatorio"
   });
 
-  // const [aux, setAux] = React.useState(false);
+
 
   const handleChange = (event) => {
 
@@ -79,11 +79,13 @@ const Create = () => {
       [event.target.name]: event.target.value },
       event.target.name
     );
-    // aux ? setAux(false) : setAux(true);
+   
   };
 
   const handleSubmit = (event) => {
+
     event.preventDefault();
+
     const body={
       name:state.name,
       description:state.description,
@@ -93,7 +95,9 @@ const Create = () => {
       rating:parseInt(state.rating),
       genres:gender
     }
+
     dispatch(postVideoGames(body));
+
     dispatch(getVideoGames());
   };
 
@@ -110,7 +114,7 @@ const Create = () => {
   };
 
   const validate = (state, name) => {
-
+    const regex = /^\s+/;
     //!Platforms
     if (name ==="platforms"){
 
@@ -175,6 +179,19 @@ const Create = () => {
         })
         return;
       }
+   
+      if(!regex.test(state.name)){
+        setError({
+          ...error,
+          name:""
+        })
+      }else{
+        setError({
+          ...error,
+          name:"NO puede contener espacios al principio"
+        })
+        return;
+      }
     }
     //!Descripcion
     if (name ==="description"){
@@ -192,6 +209,34 @@ const Create = () => {
         });
         return;
       }
+      
+      if(!regex.test(state.description)){
+        setError({
+          ...error,
+          description:""
+        })
+      }else{
+        setError({
+          ...error,
+          description:"NO puede contener espacios al principio"
+        })
+        return;
+      }
+
+      //validacion de longitud
+      if(state.description.length>10){
+        setError({
+          ...error,
+          description:""
+        })
+      }else{
+        setError({
+          ...error,
+          description:"La description debe tener al menos 10 caracteres"
+        })
+        return;
+      }
+
     }
 
     //!Imagen
@@ -207,6 +252,19 @@ const Create = () => {
           ...error,
           image: "Este campo es obligatorio",
         });
+        return;
+      }
+
+      if(!regex.test(state.image)){
+        setError({
+          ...error,
+          image:""
+        })
+      }else{
+        setError({
+          ...error,
+          image:"NO puede contener espacios al principio"
+        })
         return;
       }
     }
@@ -258,6 +316,19 @@ const Create = () => {
       }
 
        //validacion que sea un numero
+       if(!regex.test(state.rating)){
+         setError({
+           ...error,
+           rating:""
+         })
+       }else{
+         setError({
+           ...error,
+           rating:"NO puede contener espacios al principio"
+         })
+         return;
+       }
+
       if(!isNaN(parseInt(state.rating))){
         setError({
           ...error,
@@ -270,6 +341,7 @@ const Create = () => {
         })
         return;
       }
+      
       if (state.rating>=0&&state.rating<=5){
         setError({
           ...error,
@@ -281,6 +353,7 @@ const Create = () => {
           rating:"El rating tiene que ser entre 0 y 5"
         })
       }
+
     }
 
     

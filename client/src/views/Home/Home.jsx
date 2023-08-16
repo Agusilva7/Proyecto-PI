@@ -7,18 +7,7 @@ import Loading from '../../components/Loader/loder'
 import  Error  from '../../components/Error/error'
 
 const Home = () => {
-
-  // const [removeLoading,setRemoveLoading]=useState(false)
-
   const dispatch=useDispatch();
-  
-  useEffect(()=>{
-    if (!allVideoGames.length){
-      dispatch(getVideoGames())
-    }
-    dispatch(getVideoGamesGenres())
-
-  },[])
   
   const gamePlatforms=useSelector((state)=>state.gamePlatforms);
   const allVideoGames=useSelector((state)=>state.allVideoGames);
@@ -26,6 +15,17 @@ const Home = () => {
   const gameGenres=useSelector((state)=>state.gameGenres);
   const error=useSelector((state)=>state.error);
   const currentPage=useSelector((state)=>state.currentPage);
+
+  useEffect(()=>{
+    if (!allVideoGames.length){
+      dispatch(getVideoGames())
+    }
+    if (!gameGenres.length){
+      dispatch(getVideoGamesGenres())
+    }
+
+  },[])
+  
 
   const paginate=(event)=>{
     dispatch(hoja(event.target.name))

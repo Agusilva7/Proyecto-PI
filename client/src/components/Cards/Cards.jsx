@@ -14,6 +14,9 @@ const Cards = ({info}) => {
           // game.genres.forEach(genero => {
           //   gameGenero.push(genero.name)
           // });
+          if (game.onDB){
+            return <Card name={game.name} genres={game.genres} image={game.image} id={game.id} key={game.id} onDB={game.onDB}/>
+          }
           return <Card name={game.name} genres={game.genres} image={game.image} id={game.id} key={game.id}/>
         })
       }

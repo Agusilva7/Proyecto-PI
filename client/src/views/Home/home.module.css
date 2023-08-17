@@ -34,9 +34,10 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    border:0.2rem solid black
+    border:0.35rem solid black
 }
-.div_Rating,
+.div_Platforms,
+
 .div_Genres{
    
     background-color: #8022FF;
@@ -50,7 +51,16 @@ h1{
   
 }
 
-.div_Platforms,
+.div_Rating{
+    background-color: #8022FF;
+    border:0.4rem solid black;
+    border-radius: 3rem;
+    width: 11.2rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .div_Games{
     background-color: #8022FF;
     width: 10rem;

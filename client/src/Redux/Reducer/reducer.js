@@ -194,7 +194,7 @@ function rootReducer(state=initialState,action){
         
         case FILTER_RATING:
            
-            console.log(state.filterBackUp)
+           
             let order;
             if (action.payload==="Rating 👆"){
                 order=[...state.allVideoGamesBackUp].sort(function (a,b){
@@ -226,6 +226,12 @@ function rootReducer(state=initialState,action){
             }
 
         case CLEAR:
+            if (state.gameName.length){
+                return{
+                    ...state,
+                    gameName:[]
+                }
+            }
             return{
                 ...state,
                 allVideoGames:[...state.filterBackUp].splice(0,ITEMS_PER_PAGE),

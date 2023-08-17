@@ -1,10 +1,19 @@
 require('dotenv').config();
 const {API_KEY} = process.env;
+const { where ,Op} = require("sequelize");
+const {Videogames}=require("../db")
 
 const axios= require("axios")
 const getVideoGamesNameController=async(name)=>{
+    
     let aux=1
     const games=[]
+    
+    const filterByNameDB=await Videogames.findAll({
+        where:{
+            name:{[Op.iLike]:`%${name}%`},
+        },
+    });
     while (aux<6){
 
         const {data}=await axios(`https://api.rawg.io/api/games?key=${API_KEY}&page=${aux}`)
@@ -27,11 +36,10 @@ const getVideoGamesNameController=async(name)=>{
         } 
     }
     const result = games.filter(game=>game.name.toLowerCase().includes(name.toLowerCase()));
-    
-    // console.log(result.length)
 
-    if (!result.length)throw new Error("Este juego no esta disponible TUKI!!")
-    return result.slice(0,15)
+    const filterGames=filterByNameDB.concat(result)
+    if (!filterGames.length)throw new Error("Este juego no esta disponible TUKI!!")
+    return filterGames.slice(0,15)
     
 }
 module.exports=getVideoGamesNameController;

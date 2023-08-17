@@ -73,6 +73,7 @@ export function postVideoGames(body){
         try {
             
             const response=await axios.post("http://localhost:3001/videogames/",body)
+            dispatch(getVideoGames())
             dispatch({
                 type:POST_VIDEOGAMES,
                 payload:response.data

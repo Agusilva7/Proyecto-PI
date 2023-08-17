@@ -20,21 +20,30 @@ const Details = () => {
   },[])
 
   
-  const genres= new Set();
-  const plataforms= new Set();
-  const regex = /<\/?[a-z][\s\S]*?>/ig;
-  const detail=gameDetail.description?.replace(regex,"");
+  // const genres= new Set();
+  // const plataforms= new Set();
+  const genres=[]
+  const platforms=[]
   let newPlatfoms="";
   let newGenres="";
+  
+  const regex = /<\/?[a-z][\s\S]*?>/ig;
+  const detail=gameDetail.description?.replace(regex,"");
+
   //SI ES UN JUEGO DE LA API
   if (Number.isInteger(gameDetail.id)){
-
     gameDetail.genres?.forEach((element)=> {
-      genres.add(element.name)
+      // genres.add(element.name)
+      if (!genres.includes(element.name)){
+        genres.push(element.name)
+      }
     });
   
     gameDetail.platforms?.forEach((element)=>{
-      plataforms.add(element.platform.name)
+      // platforms.add(element.platform.name)
+      if (!platforms.includes(element.platform.name)){
+        platforms.push(element.platform.name)
+      }
     })
   
   }else{
@@ -59,9 +68,9 @@ const Details = () => {
           <img src={gameDetail.image}/>
         </div>
 
-        {Number.isInteger(gameDetail.id)?<h5>Genres: {genres}</h5>:<h5>Geners: {newGenres}</h5>}
+        {Number.isInteger(gameDetail.id)?<h5>Genres: {genres.join(" , ")}</h5>:<h5>Geners: {newGenres}</h5>}
         
-        {Number.isInteger(gameDetail.id)?<h5>Platforms: {plataforms}</h5>:<h5>Platforms: {newPlatfoms}</h5>}
+        {Number.isInteger(gameDetail.id)?<h5>Platforms: {platforms.join(" , ")}</h5>:<h5>Platforms: {newPlatfoms}</h5>}
        
         <h5>Rating : {gameDetail.rating}</h5>
 

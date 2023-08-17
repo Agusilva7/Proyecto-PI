@@ -5,18 +5,21 @@ import {Link} from "react-router-dom"
 // import { getVideoGamesId } from '../../Redux/Actions/actions'
 
 
-const Card = ({name,genres,image,id}) => {
+const Card = ({name,genres,image,id,onDB}) => {
 
+  if(onDB){
+    console.log("este es de la base de datos")
+  }
 
   let generos=""
-  genres.forEach((element,index)=> {
+  genres?.forEach((element,index)=> {
     if (index===genres.length-1){
       return (generos+= `${element.name}.`);
     }else {
           return (generos+= `${element.name}, `);
         }
   });
-
+ 
   return (
     <div  className={Style.card} name={id}>
       <div>
@@ -33,7 +36,7 @@ const Card = ({name,genres,image,id}) => {
       </section>
       
       <div>
-       <p>{generos}</p>
+       <p>{generos!==""?generos:"BASE DE DATOS: "+onDB}</p>
       </div>
     </div>
   )

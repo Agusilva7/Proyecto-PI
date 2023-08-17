@@ -98,7 +98,7 @@ const Create = () => {
 
     dispatch(postVideoGames(body));
 
-    dispatch(getVideoGames());
+    // dispatch(getVideoGames());
   };
 
   const disable = () => {
@@ -341,7 +341,7 @@ const Create = () => {
         })
         return;
       }
-      
+
       if (state.rating>=0&&state.rating<=5){
         setError({
           ...error,
@@ -369,13 +369,7 @@ const Create = () => {
     const clear=gender[index]
     let filtrado=gender.filter(gen=>gen!==clear)
     setGender([...filtrado])
-    // if (!gender.length){
-    //   setError({
-    //     ...error,
-    //     genres:"Este campo es obligatorio"
-    //   })
-    //   return
-    // }
+  
   }
 
   return (

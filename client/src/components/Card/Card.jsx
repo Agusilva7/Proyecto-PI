@@ -19,7 +19,7 @@ const Card = ({name,genres,image,id,onDB}) => {
           return (generos+= `${element.name}, `);
         }
   });
- 
+
   return (
     <div  className={Style.card} name={id}>
       <div>

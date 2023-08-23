@@ -135,6 +135,7 @@ function rootReducer(state=initialState,action){
                 ...state,
                 allVideoGames:[...filterVideoGames].splice(0,ITEMS_PER_PAGE),
                 allVideoGamesBackUp:filterVideoGames,
+                currentPage:0,
             }
         case FILTER_PLATFORMS:
             const filterGames=[];
@@ -163,6 +164,7 @@ function rootReducer(state=initialState,action){
                 ...state,
                 allVideoGames:[...filterGames].splice(0,ITEMS_PER_PAGE),
                 allVideoGamesBackUp:filterGames,
+                currentPage:0,
             }
 
         case FILTER_GAMES:
@@ -189,7 +191,8 @@ function rootReducer(state=initialState,action){
             return{
                 ...state,
                 allVideoGames:[...locationVideoGames].splice(0,ITEMS_PER_PAGE),
-                allVideoGamesBackUp:locationVideoGames
+                allVideoGamesBackUp:locationVideoGames,
+                currentPage:0,
             }
         
         case FILTER_RATING:

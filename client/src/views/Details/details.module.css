@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Font";
-    src: url("C:\Users\niupi\Desktop\PI-Videogames-main\client\src\Font\Valorant Font.ttf");
+    src: url("../../Font/Valorant\ Font.ttf");
   }
 .div_cont{
     display: flex;
